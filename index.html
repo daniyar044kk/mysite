@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Расписание</title>
+
+<style>
+body{ background:#e8f0fe; }
+select{ background:#ffffff; }
+.card{
+  background:#ffffff;
+  box-shadow:0 6px 14px rgba(0,60,160,0.25);
+}
+.time{ color:#0d47a1; }h1,h2{
+    text-align:center;
+    margin:6px 0;
+}
+select{
+    width:100%;
+    padding:12px;
+    font-size:17px;
+    border-radius:8px;
+    border:1px solid #bbb;
+    margin-top:14px;
+}
+.card{
+    background:#fff;
+    border-radius:12px;
+    margin-top:18px;
+    padding:14px;
+    box-shadow:0 6px 14px rgba(0,0,0,0.15);
+    display:none;
+    animation: slide .35s ease;
+}
+.lesson{
+    padding:12px 0;
+    border-bottom:1px solid #eee;
+}
+.lesson:last-child{border-bottom:none}
+.time{
+    font-weight:bold;
+    color:#1f2d3d;
+}
+.subj{
+    margin-top:6px;
+    font-size:15px;
+}
+@keyframes slide{
+    from{opacity:0;transform:translateY(16px)}
+    to{opacity:1;transform:translateY(0)}
+}
+</style>
+</head>
+
+<body>
+
+<h1>Расписание</h1>
+<h2></h2>
+
+<select onchange="showDay(this.value)">
+  <option value="">— Күнді таңдаңыз —</option>
+  <option value="mon">Дүйсенбі</option>
+  <option value="tue">Сейсенбі</option>
+  <option value="wed">Сәрсенбі</option>
+  <option value="thu">Бейсенбі</option>
+  <option value="fri">Жұма</option>
+</select>
+
+<div id="mon" class="card">
+  <div class="lesson">
+    <div class="time">09:00 – 09:50</div>
+    <div class="subj">Ақпараттық жүйелер — Дошанов А.А.</div>
+  </div>
+  <div class="lesson">
+    <div class="time">10:00 – 10:50</div>
+    <div class="subj">Философия — Кабижанова Ж.М.</div>
+  </div>
+  <div class="lesson">
+    <div class="time">11:10 – 12:00</div>
+    <div class="subj">Компьютерлік математика — Қайрақбаев А.К.</div>
+  </div>
+  <div class="lesson">
+    <div class="time">12:10 – 13:00</div>
+    <div class="subj">Операциялық жүйелер — Тайшенов О.Б.</div>
+  </div>
+</div>
+
+<div id="tue" class="card">
+  <div class="lesson">
+    <div class="time">10:00 – 10:50</div>
+    <div class="subj">Дене шынықтыру — Шахмерден А.Г.</div>
+  </div>
+  <div class="lesson">
+    <div class="time">11:10 – 12:00</div>
+    <div class="subj">АЖ (тәжірибе) — Нұрқалық С.</div>
+  </div>
+  <div class="lesson">
+    <div class="time">12:10 – 13:00</div>
+    <div class="subj">КМ (зерт) — Қайрақбаев А.К.</div>
+  </div>
+</div>
+
+<div id="wed" class="card">
+  <div class="lesson">
+    <div class="time">10:00 – 10:50</div>
+    <div class="subj">Python — Жанпейісова К.Ә.</div>
+  </div>
+  <div class="lesson">
+    <div class="time">11:10 – 12:00</div>
+    <div class="subj">Компьютерлік математика — Қайрақбаев А.К.</div>
+  </div>
+  <div class="lesson">
+    <div class="time">13:10 – 14:00</div>
+    <div class="subj">Сандық технологиялар — Изтлеуова Г.К.</div>
+  </div>
+</div>
+
+<div id="thu" class="card">
+  <div class="lesson">
+    <div class="time">09:00 – 09:50</div>
+    <div class="subj">Python (тәжірибе) — Жанпейісова К.Ә.</div>
+  </div>
+  <div class="lesson">
+    <div class="time">10:00 – 10:50</div>
+    <div class="subj">Python (зерт) — Жанпейісова К.Ә.</div>
+  </div>
+</div>
+
+<div id="fri" class="card">
+  <div class="lesson">
+    <div class="time">09:00 – 09:50</div>
+    <div class="subj">Философия (тәжірибе) — Кабижанова Ж.М.</div>
+  </div>
+  <div class="lesson">
+    <div class="time">11:10 – 12:00</div>
+    <div class="subj">Операциялық жүйелер — Исаков Е.А.</div>
+  </div>
+</div>
+
+<script>
+function showDay(day){
+  document.querySelectorAll('.card')
+    .forEach(c=>c.style.display='none');
+  if(day){
+    document.getElementById(day).style.display='block';
+  }
+}
+</script>
+
+</body>
+</html>
