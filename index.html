@@ -1,152 +1,183 @@
 <!DOCTYPE html>
-<html lang="kk">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Расписание</title>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Will you be my valentine?</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="container">
+      <img
+        class="img"
+        src="https://media.tenor.com/TUVAE2M_wz4AAAAi/chubby-tonton.gif"
+        alt="tonton"
+      />
+      <p class="title">Will you be my valentine?</p>
+      <div class="buttons">
+        <button type="button" class="btn btn-yes">Yes</button>
+        <button type="button" class="btn btn-no">No</button>
+      </div>
+    </main>
 
-<style>
-body{ background:#e8f0fe; }
-select{ background:#ffffff; }
-.card{
-  background:#ffffff;
-  box-shadow:0 6px 14px rgba(0,60,160,0.25);
+    <script src="script.js"></script>
+  </body>
+</html>
+"use strict";
+const tontonGifs = [
+  "https://media.tenor.com/TUVAE2M_wz4AAAAi/chubby-tonton.gif",
+  "https://media.tenor.com/pZk_U5JVWzUAAAAi/tonton-friends-tonton.gif",
+  "https://media.tenor.com/Jkha__Yjf0oAAAAi/sad-depression.gif",
+  "https://media.tenor.com/U0OPHZokzkUAAAAi/what-seriously.gif",
+  "https://media.tenor.com/WKXMmSk3JJsAAAAi/chubby-tonton.gif",
+  "https://media.tenor.com/ZHWV13jliTAAAAAi/chubby-tonton.gif",
+];
+
+const title = document.querySelector(".title");
+const btnContainer = document.querySelector(".buttons");
+const yesBtn = document.querySelector(".btn-yes");
+const noBtn = document.querySelector(".btn-no");
+const img = document.querySelector(".img");
+
+const MAX_IMAGES = 5;
+let play = true;
+let noCount = 0;
+let noButtonSize = 1;
+let yesButtonSize = 1;
+
+yesBtn.addEventListener("click", () => {
+  title.innerHTML = "Yay! I Love You!! 💗";
+  btnContainer.classList.add("hidden");
+  changeImage("yes");
+});
+
+noBtn.addEventListener("click", () => {
+  if (play) {
+    noCount++;
+    const imageIndex = Math.min(noCount, MAX_IMAGES);
+    changeImage(imageIndex);
+    resizeYesButton();
+    shrinkNoButton();
+    updateNoButtonText();
+    if (noCount === MAX_IMAGES) play = false;
+  }
+});
+
+function resizeYesButton() {
+  yesButtonSize *= 1.2;
+  yesBtn.style.transform = scale(${yesButtonSize});
 }
-.time{ color:#0d47a1; }h1,h2{
-    text-align:center;
-    margin:6px 0;
+
+function shrinkNoButton() {
+  noButtonSize *= 0.90;
+  noBtn.style.transform = scale(${noButtonSize});
 }
-select{
-    width:100%;
-    padding:12px;
-    font-size:17px;
-    border-radius:8px;
-    border:1px solid #bbb;
-    margin-top:14px;
+
+function generateMessage(noCount) {
+  const messages = [
+    "No 😔",
+    "Are you sure? 🥺",
+    "Pookie please 🥹",
+    "Don't do this to me 😭",
+    "You're breaking my heart 💔",
+    "I'm gonna cry... 😭💔",
+  ];
+  return messages[Math.min(noCount, messages.length - 1)];
 }
-.card{
-    background:#fff;
-    border-radius:12px;
-    margin-top:18px;
-    padding:14px;
-    box-shadow:0 6px 14px rgba(0,0,0,0.15);
-    display:none;
-    animation: slide .35s ease;
+
+function changeImage(image) {
+  img.src =
+    image === "yes"
+      ? "https://media.tenor.com/ACi1vdjNbpIAAAAi/%EC%9C%A0%ED%83%80-%ED%86%A4%ED%86%A4%ED%94%84%EB%A0%8C%EC%A6%88.gif"
+      : tontonGifs[image];
 }
-.lesson{
-    padding:12px 0;
-    border-bottom:1px solid #eee;
+
+function updateNoButtonText() {
+  noBtn.innerHTML = generateMessage(noCount);
 }
-.lesson:last-child{border-bottom:none}
-.time{
-    font-weight:bold;
-    color:#1f2d3d;
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-.subj{
-    margin-top:6px;
-    font-size:15px;
+
+html {
+  font-size: 62.5%;
 }
-@keyframes slide{
-    from{opacity:0;transform:translateY(16px)}
-    to{opacity:1;transform:translateY(0)}
+
+body {
+  background: linear-gradient(135def, #f5e0ee, #d5aecb);
+  font-family: "Poppins", serif;
+  color: #4a4a4a;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
-</style>
-</head>
 
-<body>
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem;
+  border-radius: 15px;
+  background: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
 
-<h1>Расписание</h1>
-<h2></h2>
+.img {
+  width: auto;
+  height: 28rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  transition: transform 0.3s ease-in-out;
+}
 
-<select onchange="showDay(this.value)">
-  <option value="">— Күнді таңдаңыз —</option>
-  <option value="mon">Дүйсенбі</option>
-  <option value="tue">Сейсенбі</option>
-  <option value="wed">Сәрсенбі</option>
-  <option value="thu">Бейсенбі</option>
-  <option value="fri">Жұма</option>
-</select>
+.img:hover {
+  transform: scale(1.03);
+}
 
-<div id="mon" class="card">
-  <div class="lesson">
-    <div class="time">09:00 – 09:50</div>
-    <div class="subj">Ақпараттық жүйелер — Дошанов А.А.</div>
-  </div>
-  <div class="lesson">
-    <div class="time">10:00 – 10:50</div>
-    <div class="subj">Философия — Кабижанова Ж.М.</div>
-  </div>
-  <div class="lesson">
-    <div class="time">11:10 – 12:00</div>
-    <div class="subj">Компьютерлік математика — Қайрақбаев А.К.</div>
-  </div>
-  <div class="lesson">
-    <div class="time">12:10 – 13:00</div>
-    <div class="subj">Операциялық жүйелер — Тайшенов О.Б.</div>
-  </div>
-</div>
+.title {
+  font-size: 3.6rem;
+  font-weight: 600;
+  color: hotpink;
+  margin-bottom: 2rem;
+}
 
-<div id="tue" class="card">
-  <div class="lesson">
-    <div class="time">10:00 – 10:50</div>
-    <div class="subj">Дене шынықтыру — Шахмерден А.Г.</div>
-  </div>
-  <div class="lesson">
-    <div class="time">11:10 – 12:00</div>
-    <div class="subj">АЖ (тәжірибе) — Нұрқалық С.</div>
-  </div>
-  <div class="lesson">
-    <div class="time">12:10 – 13:00</div>
-    <div class="subj">КМ (зерт) — Қайрақбаев А.К.</div>
-  </div>
-</div>
+.buttons {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
 
-<div id="wed" class="card">
-  <div class="lesson">
-    <div class="time">10:00 – 10:50</div>
-    <div class="subj">Python — Жанпейісова К.Ә.</div>
-  </div>
-  <div class="lesson">
-    <div class="time">11:10 – 12:00</div>
-    <div class="subj">Компьютерлік математика — Қайрақбаев А.К.</div>
-  </div>
-  <div class="lesson">
-    <div class="time">13:10 – 14:00</div>
-    <div class="subj">Сандық технологиялар — Изтлеуова Г.К.</div>
-  </div>
-</div>
-
-<div id="thu" class="card">
-  <div class="lesson">
-    <div class="time">09:00 – 09:50</div>
-    <div class="subj">Python (тәжірибе) — Жанпейісова К.Ә.</div>
-  </div>
-  <div class="lesson">
-    <div class="time">10:00 – 10:50</div>
-    <div class="subj">Python (зерт) — Жанпейісова К.Ә.</div>
-  </div>
-</div>
-
-<div id="fri" class="card">
-  <div class="lesson">
-    <div class="time">09:00 – 09:50</div>
-    <div class="subj">Философия (тәжірибе) — Кабижанова Ж.М.</div>
-  </div>
-  <div class="lesson">
-    <div class="time">11:10 – 12:00</div>
-    <div class="subj">Операциялық жүйелер — Исаков Е.А.</div>
-  </div>
-</div>
-
-<script>
-function showDay(day){
-  document.querySelectorAll('.card')
-    .forEach(c=>c.style.display='none');
-  if(day){
-    document.getElementById(day).style.display='block';
+.btn {
+  padding: 1.6rem 3rem;
+  border: none;
+  border-radius: 30px;
+  font-size: 1.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  &:hover {
+    transform: translateY(-2px);
   }
 }
-</script>
+.btn-yes {
+  background-color: #26953c;
+  color: white;
+}
 
-</body>
-</html>
+.btn-no {
+  background-color: rgb(166, 37, 82);
+  color: white;
+  transition: background-color 0.3s, transform 0.2s;
+}
+.hidden {
+  display: none;
+}
